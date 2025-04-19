@@ -1,0 +1,9 @@
+{
+  "dependencies": {
+    "create-react-app": "^5.1.0",
+    "hardhat": "^2.22.19"
+  },
+  "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox": "^5.0.0"
+  }
+}

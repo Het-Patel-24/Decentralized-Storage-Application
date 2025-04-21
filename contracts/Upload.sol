@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: GPL-3.0
 pragma solidity >=0.7.0 <0.9.0;
 
+
 contract Upload {
   
   struct Access{
@@ -8,9 +9,19 @@ contract Upload {
      bool access; //true or false
   }
   mapping(address=>string[]) value;
-  mapping(address=>mapping(address=>bool)) ownership;
   mapping(address=>Access[]) accessList;
+  mapping(address=>mapping(address=>bool)) ownership;
   mapping(address=>mapping(address=>bool)) previousData;
+
+  function remove(address _user, string memory url) external {
+    require(_user==msg.sender, "You don't have any rights to delete other's Content"); 
+    for(uint i=0;i<value[_user].length;i++){ 
+         if (keccak256(abi.encodePacked(url))==keccak256(abi.encodePacked(value[_user][i]))){
+            delete value[_user][i];
+            break;    
+         }
+    }
+  }
 
   function add(address _user,string memory url) external {
       value[_user].push(url);
